@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/@zxing/library@latest"></script>
+    <link rel="stylesheet" href="../Css/produtos.css">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <nav class="container-pages">
+        <a href="../index.html">Dashboard</a>
+        <a href="produtos.html">Produtos</a>
+        <a href="estoque.html">Estoque</a>
+        <a href="vendas.html">Vendas</a>
+    </nav>
+
+    <h2>Escanear Código de Barras</h2>
+
+    <video id="camera" width="300"></video>
+
+    <br><br>
+
+    <input type="text" id="codigo" placeholder="Código do produto">
+
+    <script src="../Js/produtos.js"></script> -->
+
+    <header class="cabecalho">
+        <h1>Consultar Produtos</h1>
+        <div></div>
+    </header>
+    <main>
+        <div class="containerPrincipal">
+            <img src="../img/Designer da area estoque.png" alt="">
+            <div class="container-Pesquisar">
+                <input type="search" id="pesquisar">
+            </div>    
+            <img src="../img/Designer da area Produtos.png" alt="">
+
+            <section>
+                <div>
+                    <h2>Código de Barras</h2>
+                    <section class="container-codigo-descricao">
+                        <label for="">Códido de barras</label>
+                        <input type="number" class="inputsCodigoBarras" id="codigo-barras">
+
+                        <label for="">Código interno</label>
+                        <input type="number" class="inputsCodigoBarras" id="codigo-interno">
+                        
+                        <label for="">Descrição</label>
+                        <input type="number" class="inputsCodigoBarras" id="Descricao">
+
+                        <label for="">Categoria</label>
+                        <input type="number" class="inputsCodigoBarras" id="categoria">
+                    </section>
+                </div>
+
+                <div>
+                    <h2>Descrição</h2>
+                    <section class="container-codigo-descricao">
+                        <label for="">Categoria</label>
+                        <input type="text" class="inputsCodigoBarras" id="CategoriaDaDescricao">
+
+                        <label for="">Quantidade em estoque</label>
+                        <input type="number" class="inputsCodigoBarras" id="quantidade-estoque">
+
+                        <label for="">Estoque mínimo</label>
+                        <input type="number" class="inputsCodigoBarras" id="estoque-minimo">
+                        
+                        <label for="">Preço de venda</label>
+                        <input type="number" class="inputsCodigoBarras" id="preco-venda">
+                    </section>
+                </div>
+            </section>
+
+        </div>
+
+        <section class="sessaoBotoes">
+            <button class="btn">Salvar</button>
+            <button class="btn">Cancelar</button>
+            <button class="btn">Excluir</button>
+        </section>
+
+        <table class="tabela-produtos">
+            <thead>
+                <tr>
+                    <th>Código de barras</th>
+                </tr>
+                <tr>
+                    <th>Código interno</th>
+                </tr>
+                <tr>
+                    <th>Descrição</th>
+                </tr>
+                <tr>
+                    <th>Preço venda</th>
+                </tr>
+                <tr>
+                    <th>Estoque</th>
+                </tr>
+                <tr>
+                    <th>Categoria</th>
+                </tr>
+            </thead>
+            <tbody id="resultadoTable">
+
+            </tbody>
+        </table>
+
+    </main>
+    <footer class="comandosNaTecla">
+        <div><span id="f1">F1</span> - Salvar</div>
+        <div><span id="f2">F2</span> - Cancelar</div>
+        <div><span id="f3">F3</span> - Excluir</div>
+    </footer>
+</body>
+</html>

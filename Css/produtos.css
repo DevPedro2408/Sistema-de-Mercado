@@ -1,0 +1,8 @@
+.containerPrincipal {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+img {
+    width: 200px;
+}
