@@ -1,3 +1,9 @@
+
+
+
+
+
+
 //Leitor de código de barras
 const codeReader = new ZXing.BrowserBarcodeReader()
 
