@@ -8,6 +8,10 @@ input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
 
+.inputVazio {
+    border-color: red;
+}
+
 img {
     width: 200px;
 }
