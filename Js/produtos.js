@@ -10,6 +10,7 @@ let ProdutoNovo = document.getElementById("novo-produto")
 let cancelar = document.getElementById("cancelar")
 let excluir = document.getElementById("excluir")
 let inputsCodigoBarras = [...document.querySelectorAll(".inputsCodigoBarras")]
+let resultadoTable = document.getElementById("resultadoTable")
 
 let produtos = []
 
@@ -19,9 +20,6 @@ function novoProduto() {
     let precoVendaValue = Number(precoVenda.value)
     let estoqueValue = Number(quantidadeEstoque.value)
     let estoqueMinimoValue = Number(estoqueMinimo.value)
-
-    let statusResul = "Acabando"
-    let acoesResul = "Excluir"
 
     //Encontra os inputs que estão vazio
     let inputsVazios = inputsCodigoBarras.filter(inputelements => {
@@ -40,22 +38,29 @@ function novoProduto() {
             inputsPreenchidos.forEach(elementVazi => elementVazi.classList.remove("inputVazio"))
         }
     })
-
-
-
     
-    
-    // Parei aqui!!!!!!!!!
-    let igual = produtos.findIndex((elementsProdutos, uantidade, array) => {
-        return elementsProdutos.codigo === codigoBarras
+    // Verifica se o produto ja existe, se não ele retorna -1
+    let verificacaoProdutos = produtos.findIndex(elementsProdutos => {
+        return elementsProdutos.codigoBarrasObj === codigoBarras
     })
 
     //Verifico se o input esta vazio
     let campoVazio = inputsCodigoBarras.some(inputElementos => {
         return inputElementos.value === ""
     })
-    
-    if (!campoVazio) {
+
+    let statusResul = ""
+    let acoesResul = "Excluir"
+
+    if (estoqueValue <= estoqueMinimoValue) {
+        statusResul = "Baixo"
+    } else  if (estoqueValue <= estoqueMinimoValue + 10){
+        statusResul = "Normal"
+    } else if(estoqueValue <= estoqueMinimoValue + 20) {
+        statusResul = "Alto"
+    }   // ta errado fazer novamente
+
+    if (verificacaoProdutos === -1 && !campoVazio) {
         produtos.push({
             codigoBarrasObj: codigoBarras, 
             codigoInternoObj: cdInterno, 
@@ -64,18 +69,24 @@ function novoProduto() {
             estoqueObj: estoqueValue,
             estoqueMinimoObj: estoqueMinimoValue, 
             statusObj: statusResul,
-            acoes: acoesResul,
+            acoes: acoesResul, //fazer o botao excluir la em adicionarProdutos() !!!
             categoriaObj: categoria.value
         })
         
         inputsCodigoBarras.forEach(inputsValue => inputsValue.value = "")
+
+        adicionarProdutos()
+    } else {
+        //  Fazer uma mensagem para aparecer la no site
+        console.log("Produto já existe, clique em Salvar para editar")
     }
-    
     
     console.log(produtos)
 }
 
-
+function adicionarProdutos() {
+    console.log("Produtos adicionados ao HTML")
+}
 
 //Leitor de código de barras
 // const codeReader = new ZXing.BrowserBarcodeReader()
@@ -91,3 +102,6 @@ function novoProduto() {
 //         console.log("Código detectado:", codigo)
 //     }
 // })
+
+
+//Coloque o botao salvar para salvar as alterações quando clicarem no botao Editar
