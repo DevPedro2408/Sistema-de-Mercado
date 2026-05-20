@@ -52,13 +52,24 @@ function novoProduto() {
     let statusResul = ""
     let acoesResul = "Excluir"
 
-    if (estoqueValue <= estoqueMinimoValue) {
-        statusResul = "Baixo"
-    } else  if (estoqueValue <= estoqueMinimoValue + 10){
-        statusResul = "Normal"
-    } else if(estoqueValue <= estoqueMinimoValue + 20) {
+    let diferenca = estoqueValue - estoqueMinimoValue
+    // Colocar para ter cores especificas cada um.
+    if (diferenca >= 40) {
+        statusResul = "Muito alto"  
+
+    } else if (diferenca >= 20) {
         statusResul = "Alto"
-    }   // ta errado fazer novamente
+
+    } else if (diferenca >= 0) {
+        statusResul = "Normal"
+
+    } else if (diferenca >= -10) {
+        statusResul = "Baixo"
+
+    } else {
+        statusResul = "Muito baixo"
+    }
+
 
     if (verificacaoProdutos === -1 && !campoVazio) {
         produtos.push({
