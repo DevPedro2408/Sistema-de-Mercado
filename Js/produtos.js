@@ -12,7 +12,7 @@ let excluir = document.getElementById("excluir")
 let inputsCodigoBarras = [...document.querySelectorAll(".inputsCodigoBarras")]
 let resultadoTable = document.getElementById("resultadoTable")
 
-let produtos = []
+let produtos = JSON.parse(localStorage.getItem("@listaProdutos")) || []
 
 function novoProduto() {
     let codigoBarras = Number(codigoDeBarras.value)
@@ -70,7 +70,6 @@ function novoProduto() {
         statusResul = "Muito baixo"
     }
 
-
     if (verificacaoProdutos === -1 && !campoVazio) {
         produtos.push({
             codigoBarrasObj: codigoBarras, 
@@ -87,7 +86,8 @@ function novoProduto() {
         inputsCodigoBarras.forEach(inputsValue => inputsValue.value = "")
 
         adicionarProdutos()
-    } else {
+        salvarDados()
+    } else if (!(verificacaoProdutos === -1)){
         //  Fazer uma mensagem para aparecer la no site
         console.log("Produto já existe, clique em Salvar para editar")
     }
@@ -95,10 +95,35 @@ function novoProduto() {
     console.log(produtos)
 }
 
+adicionarProdutos()
+
 function adicionarProdutos() {
+    resultadoTable.innerHTML = ""
     console.log("Produtos adicionados ao HTML")
+    let cont = 1
+
+    produtos.forEach(produtosElements => {
+        let addProduto = document.createElement("tr")
+
+        addProduto.innerHTML = `<th>${cont++}</th>
+        <th>${produtosElements.codigoBarrasObj}</th>
+        <th>${produtosElements.codigoInternoObj}</th> 
+        <th>${produtosElements.categoriaObj}</th>
+        <th>${produtosElements.descricaoObj}</th> 
+        <th>${produtosElements.precoVendaObj}</th> 
+        <th>${produtosElements.estoqueObj}</th> 
+        <th>${produtosElements.estoqueMinimoObj}</th> 
+        <th>${produtosElements.statusObj}</th> 
+        <th>${produtosElements.acoes}</th>`
+
+        resultadoTable.appendChild(addProduto)
+    })
+
 }
 
+function excluirProduto() {
+    
+}
 //Leitor de código de barras
 // const codeReader = new ZXing.BrowserBarcodeReader()
 
@@ -116,3 +141,7 @@ function adicionarProdutos() {
 
 
 //Coloque o botao salvar para salvar as alterações quando clicarem no botao Editar
+
+function salvarDados() {
+    localStorage.setItem("@listaProdutos", JSON.stringify(produtos))
+}
