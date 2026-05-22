@@ -11,6 +11,7 @@ let cancelar = document.getElementById("cancelar")
 let excluir = document.getElementById("excluir")
 let inputsCodigoBarras = [...document.querySelectorAll(".inputsCodigoBarras")]
 let resultadoTable = document.getElementById("resultadoTable")
+let botoesAcoes = document.getElementById("botoesacoes")
 
 let produtos = JSON.parse(localStorage.getItem("@listaProdutos")) || []
 
@@ -99,30 +100,57 @@ adicionarProdutos()
 
 function adicionarProdutos() {
     resultadoTable.innerHTML = ""
+    
     console.log("Produtos adicionados ao HTML")
     let cont = 1
 
     produtos.forEach(produtosElements => {
         let addProduto = document.createElement("tr")
 
-        addProduto.innerHTML = `<th>${cont++}</th>
-        <th>${produtosElements.codigoBarrasObj}</th>
-        <th>${produtosElements.codigoInternoObj}</th> 
-        <th>${produtosElements.categoriaObj}</th>
-        <th>${produtosElements.descricaoObj}</th> 
-        <th>${produtosElements.precoVendaObj}</th> 
-        <th>${produtosElements.estoqueObj}</th> 
-        <th>${produtosElements.estoqueMinimoObj}</th> 
-        <th>${produtosElements.statusObj}</th> 
-        <th>${produtosElements.acoes}</th>`
+        let botaoEditar = document.createElement("button")
+        botaoEditar.setAttribute("class", "btnEditar")
+        botaoEditar.innerHTML = "Editar"
+
+        let botaoExcluir = document.createElement("button")
+        botaoExcluir.setAttribute("class", "btnExcluir")
+        botaoExcluir.innerHTML = "x"
+
+        addProduto.innerHTML = `
+        <td>${cont++}</td>
+        <td>${produtosElements.codigoBarrasObj}</td>
+        <td>${produtosElements.codigoInternoObj}</td> 
+        <td>${produtosElements.categoriaObj}</td>
+        <td>${produtosElements.descricaoObj}</td> 
+        <td>${produtosElements.precoVendaObj}</td> 
+        <td>${produtosElements.estoqueObj}</td> 
+        <td>${produtosElements.estoqueMinimoObj}</td> 
+        <td>${produtosElements.statusObj}</td> 
+        `
+
+        // Tive que fazer isso para conseguir inserir os botões Editar e excluir.
+        let tdAcoes = document.createElement("td")
+
+        tdAcoes.append(botaoEditar, botaoExcluir)
+        addProduto.appendChild(tdAcoes)
+        
+        excluirProduto(produtosElements, botaoExcluir)
 
         resultadoTable.appendChild(addProduto)
     })
+}
+
+function Editar(produtosEditar, buttonEditar) {
 
 }
 
-function excluirProduto() {
-    
+function excluirProduto(produtoExcluido, buttonExcluir) {
+    buttonExcluir.addEventListener("click", () => {
+        let indiceProdutoExcluido = produtos.indexOf(produtoExcluido)
+        produtos.splice(indiceProdutoExcluido, 1)
+
+        salvarDados()
+        adicionarProdutos()
+    })
 }
 //Leitor de código de barras
 // const codeReader = new ZXing.BrowserBarcodeReader()
