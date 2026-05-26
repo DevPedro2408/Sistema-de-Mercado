@@ -8,12 +8,31 @@ let precoVenda = document.getElementById("preco-venda")
 let salvar = document.getElementById("salvar")
 let ProdutoNovo = document.getElementById("novo-produto")
 let cancelar = document.getElementById("cancelar")
-let excluir = document.getElementById("excluir")
 let inputsCodigoBarras = [...document.querySelectorAll(".inputsCodigoBarras")]
 let resultadoTable = document.getElementById("resultadoTable")
 let botoesAcoes = document.getElementById("botoesacoes")
 
 let produtos = JSON.parse(localStorage.getItem("@listaProdutos")) || []
+
+function verificarInputVazio() {
+    //Encontra os inputs que estão vazio
+    return inputsCodigoBarras.filter( inputelements => inputelements.value === "")
+}
+
+function verificarInputsPreenchidos() {
+    //Encontra os inputs que estão preenchidos
+    return inputsCodigoBarras.filter(elementsPreechidos => elementsPreechidos.value !== "") 
+}
+
+function validarCampos(inputVazio, inputPreenchido) {
+    inputsCodigoBarras.forEach(elementsInput => {
+        if(elementsInput.value === "") {
+            inputVazio.forEach(elementVazio => elementVazio.classList.add("inputVazio"))
+        } else {
+            inputPreenchido.forEach(elementPreenchidos => elementPreenchidos.classList.remove("inputVazio"))
+        }
+    })
+}
 
 function novoProduto() {
     let codigoBarras = Number(codigoDeBarras.value)
@@ -22,23 +41,11 @@ function novoProduto() {
     let estoqueValue = Number(quantidadeEstoque.value)
     let estoqueMinimoValue = Number(estoqueMinimo.value)
 
-    //Encontra os inputs que estão vazio
-    let inputsVazios = inputsCodigoBarras.filter(inputelements => {
-        return inputelements.value === ""
-    })
+    let inputsVazios = verificarInputVazio()   
 
-    //Encontra os inputs que estão preenchidos
-    let inputsPreenchidos = inputsCodigoBarras.filter(elementsPreechidos => {
-        return elementsPreechidos.value !== ""
-    })
+    let inputsPreenchidos = verificarInputsPreenchidos()
 
-    inputsCodigoBarras.forEach(elementsInput => {
-        if(elementsInput.value === "") {
-            inputsVazios.forEach(elementVazio => elementVazio.classList.add("inputVazio"))
-        } else {
-            inputsPreenchidos.forEach(elementVazi => elementVazi.classList.remove("inputVazio"))
-        }
-    })
+    validarCampos(inputsVazios, inputsPreenchidos)
     
     // Verifica se o produto ja existe, se não ele retorna -1
     let verificacaoProdutos = produtos.findIndex(elementsProdutos => {
@@ -51,7 +58,7 @@ function novoProduto() {
     })
 
     let statusResul = ""
-    let acoesResul = "Excluir"
+    let acoesResul = ""
 
     let diferenca = estoqueValue - estoqueMinimoValue
     // Colocar para ter cores especificas cada um.
@@ -134,13 +141,23 @@ function adicionarProdutos() {
         addProduto.appendChild(tdAcoes)
         
         excluirProduto(produtosElements, botaoExcluir)
+        editar(produtosElements, botaoEditar)
 
         resultadoTable.appendChild(addProduto)
     })
 }
 
-function Editar(produtosEditar, buttonEditar) {
-
+function editar(produtosEditar, buttonEditar) {
+    buttonEditar.addEventListener("click", () => {
+        let indice = produtos.indexOf(produtosEditar)
+        codigoDeBarras.value = produtos[indice].codigoBarrasObj
+        codigoInterno.value = produtos[indice].codigoInternoObj
+        descricao.value = produtos[indice].categoriaObj
+        categoria.value = produtos[indice].descricaoObj
+        quantidadeEstoque.value = produtos[indice].precoVendaObj
+        estoqueMinimo.value = produtos[indice].estoqueObj
+        precoVenda.value = produtos[indice].estoqueMinimoObj
+    })
 }
 
 function excluirProduto(produtoExcluido, buttonExcluir) {
@@ -169,6 +186,16 @@ function excluirProduto(produtoExcluido, buttonExcluir) {
 
 
 //Coloque o botao salvar para salvar as alterações quando clicarem no botao Editar
+
+function excluir() {
+    codigoDeBarras.value = ""
+    codigoInterno.value = ""
+    descricao.value = ""
+    categoria.value = ""
+    quantidadeEstoque.value = ""
+    estoqueMinimo.value = ""
+    precoVenda.value = ""
+}
 
 function salvarDados() {
     localStorage.setItem("@listaProdutos", JSON.stringify(produtos))
