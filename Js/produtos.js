@@ -5,7 +5,6 @@ let categoria = document.getElementById("categoria")
 let quantidadeEstoque = document.getElementById("quantidade-estoque")
 let estoqueMinimo = document.getElementById("estoque-minimo")
 let precoVenda = document.getElementById("preco-venda")
-let salvar = document.getElementById("salvar")
 let ProdutoNovo = document.getElementById("novo-produto")
 let cancelar = document.getElementById("cancelar")
 let inputsCodigoBarras = [...document.querySelectorAll(".inputsCodigoBarras")]
@@ -83,7 +82,7 @@ function novoProduto() {
             codigoBarrasObj: codigoBarras, 
             codigoInternoObj: cdInterno, 
             descricaoObj: descricao.value, 
-            precoVendaObj: precoVendaValue, 
+            precoVendaObj: precoVendaValue,
             estoqueObj: estoqueValue,
             estoqueMinimoObj: estoqueMinimoValue, 
             statusObj: statusResul,
@@ -142,22 +141,52 @@ function adicionarProdutos() {
         
         excluirProduto(produtosElements, botaoExcluir)
         editar(produtosElements, botaoEditar)
-
+        
         resultadoTable.appendChild(addProduto)
     })
 }
 
-function editar(produtosEditar, buttonEditar) {
-    buttonEditar.addEventListener("click", () => {
-        let indice = produtos.indexOf(produtosEditar)
-        codigoDeBarras.value = produtos[indice].codigoBarrasObj
-        codigoInterno.value = produtos[indice].codigoInternoObj
-        descricao.value = produtos[indice].categoriaObj
-        categoria.value = produtos[indice].descricaoObj
-        quantidadeEstoque.value = produtos[indice].precoVendaObj
-        estoqueMinimo.value = produtos[indice].estoqueObj
-        precoVenda.value = produtos[indice].estoqueMinimoObj
-    })
+function salvar(indiceEditar) {
+    let codigoBarras = Number(codigoDeBarras.value)
+    let cdInterno = Number(codigoInterno.value)
+    let precoVendaValue = Number(precoVenda.value)
+    let estoqueValue = Number(quantidadeEstoque.value)
+    let estoqueMinimoValue = Number(estoqueMinimo.value)
+
+    let inputsVazios = verificarInputVazio()
+    let inputPreenchido = verificarInputsPreenchidos()
+
+    validarCampos(inputsVazios, inputPreenchido)
+
+    let campoVazio = inputsCodigoBarras.some(eleVazio => eleVazio.value === "")
+
+    let verificarCodigoBarras = produtos.some(eleProdutos => eleProdutos.codigoBarrasObj === codigoBarras)
+
+    if (campoVazio) {
+        console.log("Preencha os campos vazios!")
+    }
+
+    if (verificarCodigoBarras) {
+        console.log("Clique em Novo Produto para adicionar o produto")
+        console.log(produtos.indexOf(indiceEditar))
+    }
+
+    if (verificarCodigoBarras && !campoVazio) {
+        produtos[1].codigoBarrasObj = codigoBarras
+        produtos[1].codigoInternoObj = cdInterno
+        produtos[1].categoriaObj = categoria.value
+        produtos[1].descricaoObj = descricao.value
+        produtos[1].precoVendaObj = precoVendaValue
+        produtos[1].estoqueObj = estoqueValue
+        produtos[1].estoqueMinimoObj = estoqueMinimoValue
+
+        inputsCodigoBarras.forEach(limparInput => limparInput.value = "")
+        
+        salvarDados()
+        adicionarProdutos()
+
+        //Estou preso aui, tenho ue dar um jeito de conseguir o indice do produto
+    }
 }
 
 function excluirProduto(produtoExcluido, buttonExcluir) {
@@ -169,6 +198,21 @@ function excluirProduto(produtoExcluido, buttonExcluir) {
         adicionarProdutos()
     })
 }
+
+function editar(produtosEditar, buttonEditar) {
+    buttonEditar.addEventListener("click", () => {
+        let indice = produtos.indexOf(produtosEditar)
+
+        codigoDeBarras.value = produtos[indice].codigoBarrasObj
+        codigoInterno.value = produtos[indice].codigoInternoObj
+        descricao.value = produtos[indice].categoriaObj
+        categoria.value = produtos[indice].descricaoObj
+        quantidadeEstoque.value = produtos[indice].precoVendaObj
+        estoqueMinimo.value = produtos[indice].estoqueObj
+        precoVenda.value = produtos[indice].estoqueMinimoObj
+    })
+}
+
 //Leitor de código de barras
 // const codeReader = new ZXing.BrowserBarcodeReader()
 
