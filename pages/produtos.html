@@ -59,7 +59,7 @@
                     <label for="">Categoria</label>
                     <input type="text" class="inputsCodigoBarras" id="categoria">
 
-                    <label for="">Quantidade em estoque</label>
+                    <label for="quantidade-estoque">Quantidade em estoque</label>
                     <input type="number" class="inputsCodigoBarras" id="quantidade-estoque">
 
                     <label for="">Estoque mínimo</label>
@@ -83,7 +83,7 @@
             <table class="tabela-produtos">
                 <thead>
                     <tr>
-                        <th></th>
+                        <th>N°</th>
                         <th>Código de Barras</th>
                         <th>Código Interno</th>
                         <th>Categoria</th>
@@ -109,6 +109,11 @@
         <div onclick="excluir()"><span id="f4">F4</span> - Excluir</div>
     </footer>
 
-    <script src="../Js/produtos.js"></script>
+    <script src="../Js/Produtos/DOM.js"></script>
+    <script src="../Js/Produtos/storage.js"></script>
+    <script src="../Js/Produtos/validacoes.js"></script>
+    <script src="../Js/Produtos/tabela.js"></script>
+    <script src="../Js/Produtos/produtos.js"></script>
+    <script src="../Js/Produtos/main.js"></script>
 </body>
 </html>
