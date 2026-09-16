@@ -21,9 +21,7 @@
 
     <br><br>
 
-    <input type="text" id="codigo" placeholder="Código do produto">
-
-    <script src="../Js/produtos.js"></script> -->
+    <input type="text" id="codigo" placeholder="Código do produto"> -->
 
     <header class="cabecalho">
         <h1>Consultar Produtos</h1>
@@ -51,7 +49,7 @@
                     <input type="number" class="inputsCodigoBarras" id="codigo-interno">
                     
                     <label for="">Descrição</label>
-                    <input type="number" class="inputsCodigoBarras" id="Descricao">
+                    <input type="text" class="inputsCodigoBarras" id="descricao">
                 </section>
             </div>
 
@@ -59,9 +57,9 @@
                 <h2>Informações do Produto</h2>
                 <section class="container-codigo-descricao">
                     <label for="">Categoria</label>
-                    <input type="text" class="inputsCodigoBarras" id="Categoria">
+                    <input type="text" class="inputsCodigoBarras" id="categoria">
 
-                    <label for="">Quantidade em estoque</label>
+                    <label for="quantidade-estoque">Quantidade em estoque</label>
                     <input type="number" class="inputsCodigoBarras" id="quantidade-estoque">
 
                     <label for="">Estoque mínimo</label>
@@ -74,10 +72,10 @@
         </section>
 
         <section class="sessaoBotoes">
-            <button class="btn">Salvar</button>
-            <button class="btn">Novo Produto</button>
-            <button class="btn">Cancelar</button>
-            <button class="btn">Excluir</button>
+            <button class="btn" id="salvar" onclick="salvar()">Salvar</button>
+            <button class="btn" id="novo-produto" onclick="novoProduto()">Novo Produto</button>
+            <button class="btn" id="cancelar" onclick="cancelar()">Cancelar</button>
+            <button class="btn" id="excluir" onclick="excluir()">Excluir</button>
         </section>
 
         <section>
@@ -85,27 +83,15 @@
             <table class="tabela-produtos">
                 <thead>
                     <tr>
+                        <th>N°</th>
                         <th>Código de Barras</th>
-                    </tr>
-                    <tr>
                         <th>Código Interno</th>
-                    </tr>
-                    <tr>
+                        <th>Categoria</th>
                         <th>Descrição</th>
-                    </tr>
-                    <tr>
                         <th>Preço de Venda</th>
-                    </tr>
-                    <tr>
                         <th>Estoque</th>
-                    </tr>
-                    <tr>
                         <th>Estoque Mínimo</th>
-                    </tr>
-                    <tr>
                         <th>Status</th>
-                    </tr>
-                    <tr>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -120,7 +106,14 @@
         <div><span id="f1">F1</span> - Salvar</div>
         <div><span id="f2">F2</span> - Novo Produto</div>
         <div><span id="f3">F3</span> - Cancelar</div>
-        <div><span id="f4">F4</span> - Excluir</div>
+        <div onclick="excluir()"><span id="f4">F4</span> - Excluir</div>
     </footer>
+
+    <script src="../Js/Produtos/DOM.js"></script>
+    <script src="../Js/Produtos/storage.js"></script>
+    <script src="../Js/Produtos/validacoes.js"></script>
+    <script src="../Js/Produtos/tabela.js"></script>
+    <script src="../Js/Produtos/produtos.js"></script>
+    <script src="../Js/Produtos/main.js"></script>
 </body>
 </html>

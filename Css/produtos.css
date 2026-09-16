@@ -3,6 +3,30 @@
     grid-template-columns: auto auto;
 }
 
+table {
+    border-collapse: collapse;
+}
+
+th, td{
+    padding: 5px;
+    text-align: center;
+    border: 1.5px solid black;
+}
+
+.btnExcluir {
+    margin-left: 5px;
+}
+
+/* Assim tira as sentinhas do Input Number */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.inputVazio {
+    border-color: red;
+}
+
 img {
     width: 200px;
 }
